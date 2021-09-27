@@ -5,7 +5,6 @@ import (
 	"log"
 )
 
-// fmaCmd represents the fma command
 var fmaCmd = &cobra.Command{
 	Use:   "fma",
 	Short: "Manage FileManager Actions",

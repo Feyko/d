@@ -8,7 +8,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// fmaRemoveCommand represents the add command
 var fmaAddCmd = &cobra.Command{
 	Use:                    "add",
 	Aliases:                []string{"create", "a", "c"},
