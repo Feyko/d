@@ -11,7 +11,7 @@ import (
 // fmaRemoveCommand represents the add command
 var fmaAddCmd = &cobra.Command{
 	Use:                    "add",
-	Aliases:                []string{"create"},
+	Aliases:                []string{"create", "a", "c"},
 	Short:                  "Add an FMA",
 	Run: func(cmd *cobra.Command, args []string) {
 		name, err := cmd.Flags().GetString("name")
