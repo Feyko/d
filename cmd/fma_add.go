@@ -18,9 +18,9 @@ var fmaAddCmd = &cobra.Command{
 			log.Fatalf("Could not get the 'name' flag: %v", err)
 		}
 
-		command, err := cmd.Flags().GetString("command")
+		command, err := cmd.Flags().GetString("exec")
 		if err != nil {
-			log.Fatalf("Could not get the 'command' flag: %v", err)
+			log.Fatalf("Could not get the 'exec' flag: %v", err)
 		}
 
 		targetsContext, err := cmd.Flags().GetBool("targetsContext")
@@ -51,11 +51,11 @@ func init() {
 		log.Fatalf("Could not mark the name flag as required: %v\n", err)
 	}
 
-	fmaAddCmd.Flags().StringP("command", "c", "",
-		"The command the action will run. List of parameters here -> https://askubuntu.com/a/783313")
-	err = fmaAddCmd.MarkFlagRequired("command")
+	fmaAddCmd.Flags().StringP("exec", "e", "",
+		"The command the action will execute. List of parameters here -> https://askubuntu.com/a/783313")
+	err = fmaAddCmd.MarkFlagRequired("exec")
 	if err != nil {
-		log.Fatalf("Could not mark the command flag as required: %v\n", err)
+		log.Fatalf("Could not mark the exec flag as required: %v\n", err)
 	}
 
 	fmaAddCmd.Flags().BoolP("targetsContext", "f", false,
