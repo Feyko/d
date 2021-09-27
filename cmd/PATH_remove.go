@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"d/pkg/PATH"
+	"fmt"
 	"log"
 
 	"github.com/spf13/cobra"
@@ -10,26 +11,21 @@ import (
 var PATHRemoveCmd = &cobra.Command{
 	Use:   "remove",
 	Aliases: []string{"delete", "r", "d"},
-	Short: "Remove a path to the PATH",
+	Short: "Remove paths from the PATH",
 	Run: func(cmd *cobra.Command, args []string) {
-		path, err := cmd.Flags().GetString("path")
-		if err != nil {
-			log.Fatalf("Could not get the 'path' flag: %v", err)
+		if len(args) == 0 {
+			log.Fatalf("This command requires at least one argument")
 		}
-		err = PATH.Remove(path)
-		if err != nil {
-			log.Fatalf("Could not remove the path %v from the PATH: %v", path, err)
+		for _, path := range args {
+			err := PATH.Remove(path)
+			if err != nil {
+				log.Fatalf("Could not remove the path %v from the PATH: %v", path, err)
+			}
+			fmt.Printf("Path %v removed from the PATH\n", path)
 		}
-		log.Printf("Success! Path %v removed from the PATH", path)
 	},
 }
 
 func init() {
 	PATHCmd.AddCommand(PATHRemoveCmd)
-
-	PATHRemoveCmd.Flags().StringP("path", "p", "", "The path to remove")
-	err := PATHRemoveCmd.MarkFlagRequired("path")
-	if err != nil {
-		log.Fatalf("Could not make the 'path' flag required in the PATH_remove command: %v", err)
-	}
 }
