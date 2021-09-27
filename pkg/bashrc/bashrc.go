@@ -1,6 +1,10 @@
 package bashrc
 
-import "os"
+import (
+	"io/ioutil"
+	"os"
+	"regexp"
+)
 
 func Append(t string) error {
 	filename, err := Filename()
@@ -19,4 +23,38 @@ func Filename() (string, error) {
 		return "", err
 	}
 	return homedir + "/.bashrc", nil
+}
+
+func Match(exp string) (bool, error) {
+	filename, err := Filename()
+	if err != nil {
+		return false, err
+	}
+	content, err := os.ReadFile(filename)
+	match, err := regexp.Match(exp, content)
+	if err != nil {
+		return false, err
+	}
+	return match, nil
+}
+
+func ReplaceAll(exp, rep string) error {
+	filename, err := Filename()
+	if err != nil {
+		return err
+	}
+	content, err := os.ReadFile(filename)
+	if err != nil {
+		return err
+	}
+	r, err := regexp.Compile(exp)
+	if err != nil {
+		return err
+	}
+	content = r.ReplaceAll(content, []byte(rep))
+	err = ioutil.WriteFile(filename, content, 0644)
+	if err != nil {
+		return err
+	}
+	return nil
 }
