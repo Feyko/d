@@ -12,3 +12,5 @@ D can add and remove FileManager Actions. You can configure their names, executi
 D can add, remove and check for the existence of aliases. This is all done via the .bashrc file for the current user
 ## PATH
 D can manage the PATH. You can add, remove and list parts of the PATH. This is also all done via the .bashrc file for the current user
+## .bashrc
+D can add line to the .bashrc file for the calling user. It is planned to allow for removal and checking of lines too (though I don't see the use myself)
